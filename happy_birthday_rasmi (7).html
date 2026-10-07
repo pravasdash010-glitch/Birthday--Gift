@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Rasmi! ❤️</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --transition-speed: 1.2s;
+            --primary-bg: #1a0008;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: #fff;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cursive-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem;
+            z-index: 10;
+            transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed), transform var(--transition-speed) ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.95);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 20;
+            transform: scale(1);
+        }
+
+        #slide-0 { background: linear-gradient(135deg, #3a0010 0%, #110005 100%); }
+        #slide-1 { background: linear-gradient(135deg, #2d0016 0%, #110008 100%); }
+        #slide-2 { background: linear-gradient(135deg, #1a001a 0%, #080008 100%); }
+        #slide-3 { background: linear-gradient(135deg, #280018 0%, #0d000d 100%); }
+        #slide-4 { background: linear-gradient(135deg, #300010 0%, #1a0005 100%); }
+        #slide-5 { background: radial-gradient(circle at center, #800020 0%, #1a0008 100%); }
+
+        .glass-panel {
+            background: rgba(20, 0, 10, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 105, 180, 0.25);
+            border-radius: 2rem;
+            padding: 2.5rem 2rem;
+            max-width: 95%;
+            width: 600px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 105, 180, 0.05);
+            position: relative;
+            z-index: 30;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: all 1s ease-out 0.4s;
+        }
+
+        .slide.active .glass-panel {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hero-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 182, 193, 0.9);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
+            margin: 0 auto 1.5rem;
+            animation: pulseImage 3s infinite alternate;
+        }
+
+        .gif-container {
+            width: 100%;
+            max-width: 220px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.05);
+            padding: 0.35rem;
+            border: 1px solid rgba(255,105,180,0.3);
+        }
+
+        .gif-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0.75rem;
+        }
+
+        .glow-text {
+            color: #fff;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff1493;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseImage {
+            from { box-shadow: 0 0 20px rgba(255, 105, 180, 0.4); border-color: rgba(255, 182, 193, 0.6); transform: scale(1); }
+            to { box-shadow: 0 0 45px rgba(255, 105, 180, 0.9); border-color: rgba(255, 255, 255, 1); transform: scale(1.03); }
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493; }
+            to { text-shadow: 0 0 15px #ffb6c1, 0 0 30px #ff1493, 0 0 45px #c71585; }
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 50;
+            padding: 0 1rem;
+            pointer-events: none;
+        }
+
+        .nav-btn {
+            pointer-events: auto;
+            background: rgba(255, 105, 180, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.6);
+            color: #ffe4e1;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 105, 180, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.15;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #particles, #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #fff; }
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: #ff69b4;
+            opacity: 0.7;
+            animation: floatUp linear forwards;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Confetti for the final slide */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: confettiFall linear forwards;
+            z-index: 15;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="stars"></div>
+    <div id="particles"></div>
+
+    <div class="slider-container" id="slider">
+        
+        <section class="slide active" id="slide-0">
+            <div class="glass-panel">
+                <img src="SCZ_7166.jpg" alt="Rasmi" class="hero-img">
+                <h1 class="text-5xl md:text-7xl font-bold mb-2 cursive-font glow-text leading-tight mt-2">
+                    Happy Birthday<br>Rasmi! ❤️
+                </h1>
+                <div class="w-24 h-0.5 bg-pink-400 mx-auto mb-6 rounded-full opacity-60"></div>
+                <p class="text-lg md:text-xl font-light text-pink-100 tracking-wide mb-4">
+                    To the most beautiful girl in my world. ✨
+                </p>
+                <div class="bg-red-900/40 border border-red-500/30 rounded-xl p-4 mt-2">
+                    <p class="text-sm md:text-base font-medium text-red-200">
+                        I am so, so sorry I missed the midnight wish... please forgive me 🥺💖
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-1">
+            <div class="glass-panel">
+                <div class="gif-container">
+                    <!-- Cute Hugging GIF -->
+                    <img src="https://media1.tenor.com/m/7T1cCWGMEfQAAAAd/milk-and-mocha.gif" alt="Hugging Bear">
+                </div>
+                <h2 class="text-4xl md:text-5xl mb-6 cursive-font text-pink-300 font-bold drop-shadow-md">My True Love</h2>
+                <div class="w-20 h-0.5 bg-pink-500 mx-auto mb-6 rounded-full opacity-50"></div>
+                <p class="text-lg md:text-xl font-light leading-relaxed text-gray-100">
+                    I love you so much from the very bottom of my heart. ❤️<br><br>
+                    You are my everything, today and always.
+                </p>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-2">
+            <div class="glass-panel">
+                <div class="gif-container">
+                    <!-- Sad/Comforting missing you GIF -->
+                    <img src="https://media1.tenor.com/m/8l4Q2R_W-pQAAAAd/milk-and-mocha-bear-crying.gif" alt="Missing You Bear">
+                </div>
+                <h2 class="text-4xl md:text-5xl mb-6 cursive-font text-pink-300 font-bold drop-shadow-md">My Confession</h2>
+                <div class="w-20 h-0.5 bg-pink-500 mx-auto mb-6 rounded-full opacity-50"></div>
+                <p class="text-base md:text-lg font-light leading-relaxed text-gray-200">
+                    I know sometimes I irritate you... but my feelings for you are incredibly true. 😔<br><br>
+                    When you are mad at me, my world stops, and I just miss you more and more. 💞
+                </p>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-3">
+            <div class="glass-panel">
+                <div class="gif-container">
+                    <!-- Hopeful/Holding hands GIF -->
+                    <img src="https://media.tenor.com/qU3yE3R-mHQAAAAi/tkthao219-bubududu.gif" alt="Comforting Bears">
+                </div>
+                <h2 class="text-4xl md:text-5xl mb-6 cursive-font text-pink-300 font-bold drop-shadow-md">My Wish For You</h2>
+                <div class="w-20 h-0.5 bg-pink-500 mx-auto mb-6 rounded-full opacity-50"></div>
+                <p class="text-base md:text-lg font-light leading-relaxed text-gray-200">
+                    I pray that you get all the happiness you truly deserve in this life. 🙏✨<br><br>
+                    I hope our internal problems will be solved soon, so we can just be happy together without any worries. 🫂
+                </p>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-4">
+            <div class="glass-panel border-red-400/40" style="background: rgba(40, 0, 10, 0.6);">
+                <div class="gif-container border-red-400/50">
+                    <!-- Pleading/Sorry GIF -->
+                    <img src="https://media1.tenor.com/m/t1nF-N1Cj-sAAAAd/please-cute.gif" alt="Pleading Sorry">
+                </div>
+                <h2 class="text-4xl md:text-5xl mb-6 cursive-font text-red-300 font-bold drop-shadow-md">I'm Sorry</h2>
+                <div class="w-20 h-0.5 bg-red-500 mx-auto mb-6 rounded-full opacity-50"></div>
+                <p class="text-base md:text-lg font-light leading-relaxed text-gray-200">
+                    I feel terrible for being late for your birthday wish... but you mean the whole world to me. 🥺<br><br>
+                    <span class="font-medium text-pink-200 text-xl block mt-4">Please forgive your idiot? ❤️</span>
+                </p>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-5">
+            <div class="glass-panel" style="background: rgba(30, 0, 15, 0.75); border-color: rgba(255, 20, 147, 0.6); box-shadow: 0 0 40px rgba(255,20,147,0.3);">
+                <div class="text-5xl mb-2 animate-bounce">🎂</div>
+                <h3 class="text-2xl md:text-3xl cursive-font text-pink-200 mb-2">
+                    Wishing you the happiest birthday!
+                </h3>
+                <h2 class="text-5xl md:text-7xl mb-6 cursive-font glow-text font-bold leading-tight my-4">
+                    I Love You<br>Rasmi! 💕🎉
+                </h2>
+                <div class="w-32 h-1 bg-pink-500 mx-auto mb-6 rounded-full opacity-90 shadow-[0_0_15px_#ff1493]"></div>
+                <p class="text-lg md:text-xl font-medium text-pink-100 mt-4 tracking-widest uppercase text-sm">
+                    Forever & Always Yours
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="controls">
+        <button id="prev-btn" class="nav-btn" onclick="changeSlide(-1)" disabled>
+            Prev
+        </button>
+        <button id="next-btn" class="nav-btn" onclick="changeSlide(1)">
+            Next
+        </button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const particlesContainer = document.getElementById('particles');
+        const starsContainer = document.getElementById('stars');
+        let currentSlide = 0;
+        let confettiInterval;
+
+        // Slide State Management
+        function updateSlider() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            
+            if (currentSlide === slides.length - 1) {
+                nextBtn.innerHTML = 'Replay 💖';
+                startConfetti();
+                createHeartBurst();
+            } else {
+                nextBtn.innerHTML = 'Next';
+                stopConfetti();
+            }
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1) {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                } else {
+                    currentSlide = 0; // Restart
+                }
+            } else if (direction === -1) {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                }
+            }
+            updateSlider();
+        }
+
+        // Ambient Effects
+        function createStars() {
+            for(let i=0; i<75; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createAmbientHearts() {
+            const emojis = ['❤️', '💖', '✨', '💕', '🥺'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                const size = Math.random() * 15 + 12;
+                heart.style.fontSize = `${size}px`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                
+                const duration = Math.random() * 8 + 8; // 8 to 16 seconds
+                heart.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), duration * 1000);
+            }, 500); 
+        }
+
+        // Finale Effects
+        function createHeartBurst() {
+            for(let i=0; i<40; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-particle');
+                    heart.innerText = '💖';
+                    heart.style.fontSize = `${Math.random() * 35 + 20}px`;
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.animation = `floatUp ${Math.random() * 4 + 3}s ease-out forwards`;
+                    
+                    particlesContainer.appendChild(heart);
+                    setTimeout(() => heart.remove(), 7000);
+                }, i * 40);
+            }
+        }
+
+        function startConfetti() {
+            if(confettiInterval) return;
+            const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#fff', '#ffd700'];
+            confettiInterval = setInterval(() => {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = colors[Math.random() * colors.length | 0];
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                // Randomize shape (some squares, some circles, some thin rectangles)
+                const shapeType = Math.random();
+                if(shapeType > 0.6) {
+                    confetti.style.borderRadius = '50%';
+                } else if(shapeType > 0.3) {
+                    confetti.style.width = '6px';
+                    confetti.style.height = '15px';
+                }
+
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }, 50);
+        }
+
+        function stopConfetti() {
+            if(confettiInterval) {
+                clearInterval(confettiInterval);
+                confettiInterval = null;
+            }
+        }
+
+        // Initialize background and slider
+        window.onload = () => {
+            createStars();
+            createAmbientHearts();
+        };
+
+        // Swipe Gestures for Mobile devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const slider = document.getElementById('slider');
+
+        slider.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        slider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const swipeThreshold = 50; 
+            if (touchStartX - touchEndX > swipeThreshold) {
+                // Swiped Left -> Next Slide
+                if(currentSlide < slides.length - 1) changeSlide(1);
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                // Swiped Right -> Prev Slide
+                if(currentSlide > 0) changeSlide(-1);
+            }
+        }
+    </script>
+</body>
+</html>
